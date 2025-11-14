@@ -1,0 +1,145 @@
+-- ============================================================
+-- RECONSTRUÇÃO DO BANCO CORRIGIDO E ORGANIZADO
+-- Compatível com PostgreSQL 14+
+-- ============================================================
+
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public AUTHORIZATION postgres;
+SET search_path = public;
+
+---------------------------------------------------------------
+-- TABELA: convenio
+---------------------------------------------------------------
+CREATE TABLE convenio (
+    convenio_id SERIAL PRIMARY KEY,
+    convenio_tipo CHAR(1),
+    convenio_nome VARCHAR(100) NOT NULL,
+    convenio_status CHAR(1) DEFAULT 'A',
+    convenio_area CHAR(1),
+    convenio_coparticipacao CHAR(1)
+);
+
+---------------------------------------------------------------
+-- TABELA: especialidade
+---------------------------------------------------------------
+CREATE TABLE especialidade (
+    especialidade_id SERIAL PRIMARY KEY,
+    especialidade_nome VARCHAR(50) NOT NULL,
+    especialidade_status CHAR(1) DEFAULT 'A',
+    especialidade_cbo VARCHAR(10),
+    especialidade_escala TEXT,
+    especialidade_descricao TEXT
+);
+
+---------------------------------------------------------------
+-- TABELA: medico
+---------------------------------------------------------------
+CREATE TABLE medico (
+    medico_id SERIAL PRIMARY KEY,
+    medico_nome VARCHAR(100) NOT NULL,
+    medico_crm VARCHAR(20) UNIQUE NOT NULL,
+    medico_cpf CHAR(11) UNIQUE,
+    medico_telefone VARCHAR(20),
+    medico_email VARCHAR(100),
+    medico_dtnascimento DATE,
+    medico_status CHAR(1) DEFAULT 'A',
+    medico_sexo CHAR(1),
+    medico_endereco VARCHAR(100),
+
+    especialidade_id INTEGER REFERENCES especialidade(especialidade_id)
+);
+
+---------------------------------------------------------------
+-- TABELA: paciente
+---------------------------------------------------------------
+CREATE TABLE paciente (
+    paciente_id SERIAL PRIMARY KEY,
+    paciente_nome VARCHAR(100) NOT NULL,
+    paciente_telefone VARCHAR(30),
+    paciente_cpf CHAR(11) UNIQUE,
+    paciente_dtnascimento DATE,
+    paciente_email VARCHAR(100),
+    paciente_endereco VARCHAR(100),
+    paciente_status CHAR(1) DEFAULT 'A',
+    paciente_alergia VARCHAR(100),
+    paciente_sexo CHAR(1),
+    paciente_nacionalidade VARCHAR(50),
+    paciente_estado_civil CHAR(1),
+
+    convenio_id INTEGER REFERENCES convenio(convenio_id)
+);
+
+---------------------------------------------------------------
+-- TABELA: responsavel
+---------------------------------------------------------------
+CREATE TABLE responsavel (
+    responsavel_id SERIAL PRIMARY KEY,
+    responsavel_nome VARCHAR(150) NOT NULL,
+    responsavel_cpf CHAR(11) UNIQUE,
+    responsavel_dtnascimento DATE,
+    responsavel_telefone VARCHAR(20),
+    responsavel_email VARCHAR(100),
+    responsavel_endereco VARCHAR(200),
+    responsavel_parentesco VARCHAR(50),
+    responsavel_observacoes TEXT,
+
+    paciente_id INTEGER REFERENCES paciente(paciente_id)
+);
+
+---------------------------------------------------------------
+-- TABELA: funcionario
+---------------------------------------------------------------
+CREATE TABLE funcionario (
+    funcionario_id SERIAL PRIMARY KEY,
+    funcionario_nome VARCHAR(100) NOT NULL,
+    funcionario_funcao CHAR(1),
+    funcionario_cpf CHAR(11) UNIQUE,
+    funcionario_status CHAR(1) DEFAULT 'A',
+    funcionario_email VARCHAR(100),
+    funcionario_telefone VARCHAR(20),
+    funcionario_sexo CHAR(1),
+    funcionario_dtnascimento DATE,
+    funcionario_endereco VARCHAR(100)
+);
+
+---------------------------------------------------------------
+-- TABELA: usuario
+---------------------------------------------------------------
+CREATE TABLE usuario (
+    usuario_id SERIAL PRIMARY KEY,
+    usuario_nome VARCHAR(100),
+    usuario_cpf CHAR(11) UNIQUE,
+    usuario_email VARCHAR(100) UNIQUE,
+    usuario_senha VARCHAR(200),
+    usuario_status CHAR(1) DEFAULT 'A',
+    
+    funcionario_id INTEGER REFERENCES funcionario(funcionario_id)
+);
+
+---------------------------------------------------------------
+-- TABELA: medicamento
+---------------------------------------------------------------
+CREATE TABLE medicamento (
+    medicamento_id SERIAL PRIMARY KEY,
+    medicamento_nome VARCHAR(100) NOT NULL,
+    medicamento_bula TEXT,
+    medicamento_tipo CHAR(1),
+    medicamento_tarja CHAR(1),
+    medicamento_principioativo VARCHAR(100),
+    medicamento_observacao TEXT
+);
+
+---------------------------------------------------------------
+-- TABELA: exame
+---------------------------------------------------------------
+CREATE TABLE exame (
+    exame_id SERIAL PRIMARY KEY,
+    exame_nome VARCHAR(100) NOT NULL,
+    exame_tipo CHAR(1),
+    exame_status CHAR(1) DEFAULT 'A',
+    exame_orientacao TEXT,
+    exame_horai TIME,
+    exame_horaf TIME,
+
+    convenio_id INTEGER REFERENCES convenio(convenio_id)
+);
