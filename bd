@@ -1,145 +1,769 @@
--- ============================================================
--- RECONSTRUÇÃO DO BANCO CORRIGIDO E ORGANIZADO
--- Compatível com PostgreSQL 14+
--- ============================================================
+--
+-- PostgreSQL database dump
+--
 
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public AUTHORIZATION postgres;
-SET search_path = public;
+-- Dumped from database version 14.11
+-- Dumped by pg_dump version 14.11
 
----------------------------------------------------------------
--- TABELA: convenio
----------------------------------------------------------------
-CREATE TABLE convenio (
-    convenio_id SERIAL PRIMARY KEY,
-    convenio_tipo CHAR(1),
-    convenio_nome VARCHAR(100) NOT NULL,
-    convenio_status CHAR(1) DEFAULT 'A',
-    convenio_area CHAR(1),
-    convenio_coparticipacao CHAR(1)
+-- Started on 2025-11-14 19:50:25
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 3393 (class 0 OID 0)
+-- Dependencies: 3
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 226 (class 1259 OID 32943)
+-- Name: convenio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.convenio (
+    convenio_id integer NOT NULL,
+    convenio_tipo character(1),
+    convenio_nome character varying,
+    convenio_status character(1),
+    convenio_area character(1),
+    convenio_coparticipacao character(1)
 );
 
----------------------------------------------------------------
--- TABELA: especialidade
----------------------------------------------------------------
-CREATE TABLE especialidade (
-    especialidade_id SERIAL PRIMARY KEY,
-    especialidade_nome VARCHAR(50) NOT NULL,
-    especialidade_status CHAR(1) DEFAULT 'A',
-    especialidade_cbo VARCHAR(10),
-    especialidade_escala TEXT,
-    especialidade_descricao TEXT
+
+ALTER TABLE public.convenio OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 32942)
+-- Name: convenio_convenio_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.convenio_convenio_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.convenio_convenio_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3394 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: convenio_convenio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.convenio_convenio_id_seq OWNED BY public.convenio.convenio_id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 32925)
+-- Name: especialidade; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.especialidade (
+    especialidade_id integer NOT NULL,
+    especialidade_nome character varying(50),
+    especialidade_status character(1),
+    especialidade_cbo character varying(10),
+    especialidade_escala text,
+    especialidade_descricao text
 );
 
----------------------------------------------------------------
--- TABELA: medico
----------------------------------------------------------------
-CREATE TABLE medico (
-    medico_id SERIAL PRIMARY KEY,
-    medico_nome VARCHAR(100) NOT NULL,
-    medico_crm VARCHAR(20) UNIQUE NOT NULL,
-    medico_cpf CHAR(11) UNIQUE,
-    medico_telefone VARCHAR(20),
-    medico_email VARCHAR(100),
-    medico_dtnascimento DATE,
-    medico_status CHAR(1) DEFAULT 'A',
-    medico_sexo CHAR(1),
-    medico_endereco VARCHAR(100),
 
-    especialidade_id INTEGER REFERENCES especialidade(especialidade_id)
+ALTER TABLE public.especialidade OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 32924)
+-- Name: especialidade_especialidade_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.especialidade_especialidade_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.especialidade_especialidade_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3395 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: especialidade_especialidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.especialidade_especialidade_id_seq OWNED BY public.especialidade.especialidade_id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 32934)
+-- Name: exame; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.exame (
+    exame_id integer NOT NULL,
+    exame_nome character varying(50),
+    exame_tipo character(1),
+    exame_status character(1),
+    exame_orientacao text,
+    exame_horai time without time zone,
+    exame_horaf time without time zone
 );
 
----------------------------------------------------------------
--- TABELA: paciente
----------------------------------------------------------------
-CREATE TABLE paciente (
-    paciente_id SERIAL PRIMARY KEY,
-    paciente_nome VARCHAR(100) NOT NULL,
-    paciente_telefone VARCHAR(30),
-    paciente_cpf CHAR(11) UNIQUE,
-    paciente_dtnascimento DATE,
-    paciente_email VARCHAR(100),
-    paciente_endereco VARCHAR(100),
-    paciente_status CHAR(1) DEFAULT 'A',
-    paciente_alergia VARCHAR(100),
-    paciente_sexo CHAR(1),
-    paciente_nacionalidade VARCHAR(50),
-    paciente_estado_civil CHAR(1),
 
-    convenio_id INTEGER REFERENCES convenio(convenio_id)
+ALTER TABLE public.exame OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 32933)
+-- Name: exame_exame_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.exame_exame_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.exame_exame_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3396 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: exame_exame_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.exame_exame_id_seq OWNED BY public.exame.exame_id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 32909)
+-- Name: funcionario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.funcionario (
+    funcionario_id integer NOT NULL,
+    funcionario_nome character varying(100),
+    funcionario_funcao character(1),
+    funcionario_cpf character varying(11),
+    funcionario_status character(1),
+    funcionario_email character varying(50),
+    funcionario_telefone character varying(15),
+    funcionario_sexo character(1),
+    funcionario_dtnascimento date,
+    funcionario_endereco character varying(50)
 );
 
----------------------------------------------------------------
--- TABELA: responsavel
----------------------------------------------------------------
-CREATE TABLE responsavel (
-    responsavel_id SERIAL PRIMARY KEY,
-    responsavel_nome VARCHAR(150) NOT NULL,
-    responsavel_cpf CHAR(11) UNIQUE,
-    responsavel_dtnascimento DATE,
-    responsavel_telefone VARCHAR(20),
-    responsavel_email VARCHAR(100),
-    responsavel_endereco VARCHAR(200),
-    responsavel_parentesco VARCHAR(50),
-    responsavel_observacoes TEXT,
 
-    paciente_id INTEGER REFERENCES paciente(paciente_id)
+ALTER TABLE public.funcionario OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 32908)
+-- Name: funcionario_funcionario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.funcionario_funcionario_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.funcionario_funcionario_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3397 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: funcionario_funcionario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.funcionario_funcionario_id_seq OWNED BY public.funcionario.funcionario_id;
+
+
+--
+-- TOC entry 220 (class 1259 OID 32916)
+-- Name: medicamento; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medicamento (
+    medicamento_id integer NOT NULL,
+    medicamento_nome character varying(50),
+    medicamento_bula text,
+    medicamento_tipo character(1),
+    medicamento_tarja character(1),
+    medicamento_principioativo character varying(100),
+    medicamento_observacao text
 );
 
----------------------------------------------------------------
--- TABELA: funcionario
----------------------------------------------------------------
-CREATE TABLE funcionario (
-    funcionario_id SERIAL PRIMARY KEY,
-    funcionario_nome VARCHAR(100) NOT NULL,
-    funcionario_funcao CHAR(1),
-    funcionario_cpf CHAR(11) UNIQUE,
-    funcionario_status CHAR(1) DEFAULT 'A',
-    funcionario_email VARCHAR(100),
-    funcionario_telefone VARCHAR(20),
-    funcionario_sexo CHAR(1),
-    funcionario_dtnascimento DATE,
-    funcionario_endereco VARCHAR(100)
+
+ALTER TABLE public.medicamento OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 32915)
+-- Name: medicamento_medicamento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.medicamento_medicamento_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.medicamento_medicamento_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3398 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: medicamento_medicamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.medicamento_medicamento_id_seq OWNED BY public.medicamento.medicamento_id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 32891)
+-- Name: medico; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.medico (
+    medico_id integer NOT NULL,
+    medico_nome character varying(50),
+    medico_crm integer,
+    medico_cpf character varying(11),
+    medico_telefone integer,
+    medico_email character varying,
+    medico_dtnascimento date,
+    medico_status character(1),
+    medico_sexo character(1),
+    medico_endereco character varying(50)
 );
 
----------------------------------------------------------------
--- TABELA: usuario
----------------------------------------------------------------
-CREATE TABLE usuario (
-    usuario_id SERIAL PRIMARY KEY,
-    usuario_nome VARCHAR(100),
-    usuario_cpf CHAR(11) UNIQUE,
-    usuario_email VARCHAR(100) UNIQUE,
-    usuario_senha VARCHAR(200),
-    usuario_status CHAR(1) DEFAULT 'A',
-    
-    funcionario_id INTEGER REFERENCES funcionario(funcionario_id)
+
+ALTER TABLE public.medico OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 32890)
+-- Name: medico_medico_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.medico_medico_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.medico_medico_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3399 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: medico_medico_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.medico_medico_id_seq OWNED BY public.medico.medico_id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 32884)
+-- Name: paciente; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.paciente (
+    paciente_id integer NOT NULL,
+    paciente_nome character varying(100),
+    paciente_telefone character varying(30),
+    paciente_cpf character varying(11),
+    paciente_dnas date,
+    paciente_email character varying(30),
+    paciente_endereco character varying(50),
+    paciente_status character(1),
+    paciente_alergia character varying(30),
+    paciente_sexo character(1),
+    paciente_nacionalidade character varying(30),
+    paciente_estadocivil character(1)
 );
 
----------------------------------------------------------------
--- TABELA: medicamento
----------------------------------------------------------------
-CREATE TABLE medicamento (
-    medicamento_id SERIAL PRIMARY KEY,
-    medicamento_nome VARCHAR(100) NOT NULL,
-    medicamento_bula TEXT,
-    medicamento_tipo CHAR(1),
-    medicamento_tarja CHAR(1),
-    medicamento_principioativo VARCHAR(100),
-    medicamento_observacao TEXT
+
+ALTER TABLE public.paciente OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 32883)
+-- Name: paciente_paciente_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.paciente_paciente_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.paciente_paciente_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3400 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: paciente_paciente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.paciente_paciente_id_seq OWNED BY public.paciente.paciente_id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 32900)
+-- Name: responsavel; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.responsavel (
+    responsavel_id integer NOT NULL,
+    responsavel_nome character varying(150),
+    responsavel_cpf character(11),
+    responsavel_dtnascimento date,
+    responsavel_telefone character varying,
+    responsavel_email character varying(100),
+    responsavel_endereco text,
+    responsavel_parentesco character varying(50),
+    responsavel_observacoes text
 );
 
----------------------------------------------------------------
--- TABELA: exame
----------------------------------------------------------------
-CREATE TABLE exame (
-    exame_id SERIAL PRIMARY KEY,
-    exame_nome VARCHAR(100) NOT NULL,
-    exame_tipo CHAR(1),
-    exame_status CHAR(1) DEFAULT 'A',
-    exame_orientacao TEXT,
-    exame_horai TIME,
-    exame_horaf TIME,
 
-    convenio_id INTEGER REFERENCES convenio(convenio_id)
+ALTER TABLE public.responsavel OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 32899)
+-- Name: responsavel_responsavel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.responsavel_responsavel_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.responsavel_responsavel_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3401 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: responsavel_responsavel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.responsavel_responsavel_id_seq OWNED BY public.responsavel.responsavel_id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 32875)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    usuario_id integer NOT NULL,
+    usuario_nome character varying,
+    usuario_cpf integer,
+    usuario_email character varying,
+    usuario_senha character varying,
+    usuario_status character(1)
 );
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 32874)
+-- Name: usuario_usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.usuario_usuario_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_usuario_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3402 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: usuario_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.usuario_usuario_id_seq OWNED BY public.usuario.usuario_id;
+
+
+--
+-- TOC entry 3212 (class 2604 OID 32946)
+-- Name: convenio convenio_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.convenio ALTER COLUMN convenio_id SET DEFAULT nextval('public.convenio_convenio_id_seq'::regclass);
+
+
+--
+-- TOC entry 3210 (class 2604 OID 32928)
+-- Name: especialidade especialidade_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.especialidade ALTER COLUMN especialidade_id SET DEFAULT nextval('public.especialidade_especialidade_id_seq'::regclass);
+
+
+--
+-- TOC entry 3211 (class 2604 OID 32937)
+-- Name: exame exame_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.exame ALTER COLUMN exame_id SET DEFAULT nextval('public.exame_exame_id_seq'::regclass);
+
+
+--
+-- TOC entry 3208 (class 2604 OID 32912)
+-- Name: funcionario funcionario_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionario ALTER COLUMN funcionario_id SET DEFAULT nextval('public.funcionario_funcionario_id_seq'::regclass);
+
+
+--
+-- TOC entry 3209 (class 2604 OID 32919)
+-- Name: medicamento medicamento_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medicamento ALTER COLUMN medicamento_id SET DEFAULT nextval('public.medicamento_medicamento_id_seq'::regclass);
+
+
+--
+-- TOC entry 3206 (class 2604 OID 32894)
+-- Name: medico medico_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medico ALTER COLUMN medico_id SET DEFAULT nextval('public.medico_medico_id_seq'::regclass);
+
+
+--
+-- TOC entry 3205 (class 2604 OID 32887)
+-- Name: paciente paciente_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paciente ALTER COLUMN paciente_id SET DEFAULT nextval('public.paciente_paciente_id_seq'::regclass);
+
+
+--
+-- TOC entry 3207 (class 2604 OID 32903)
+-- Name: responsavel responsavel_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.responsavel ALTER COLUMN responsavel_id SET DEFAULT nextval('public.responsavel_responsavel_id_seq'::regclass);
+
+
+--
+-- TOC entry 3204 (class 2604 OID 32878)
+-- Name: usuario usuario_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario ALTER COLUMN usuario_id SET DEFAULT nextval('public.usuario_usuario_id_seq'::regclass);
+
+
+--
+-- TOC entry 3387 (class 0 OID 32943)
+-- Dependencies: 226
+-- Data for Name: convenio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.convenio (convenio_id, convenio_tipo, convenio_nome, convenio_status, convenio_area, convenio_coparticipacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3383 (class 0 OID 32925)
+-- Dependencies: 222
+-- Data for Name: especialidade; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.especialidade (especialidade_id, especialidade_nome, especialidade_status, especialidade_cbo, especialidade_escala, especialidade_descricao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3385 (class 0 OID 32934)
+-- Dependencies: 224
+-- Data for Name: exame; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.exame (exame_id, exame_nome, exame_tipo, exame_status, exame_orientacao, exame_horai, exame_horaf) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3379 (class 0 OID 32909)
+-- Dependencies: 218
+-- Data for Name: funcionario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.funcionario (funcionario_id, funcionario_nome, funcionario_funcao, funcionario_cpf, funcionario_status, funcionario_email, funcionario_telefone, funcionario_sexo, funcionario_dtnascimento, funcionario_endereco) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3381 (class 0 OID 32916)
+-- Dependencies: 220
+-- Data for Name: medicamento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medicamento (medicamento_id, medicamento_nome, medicamento_bula, medicamento_tipo, medicamento_tarja, medicamento_principioativo, medicamento_observacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3375 (class 0 OID 32891)
+-- Dependencies: 214
+-- Data for Name: medico; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.medico (medico_id, medico_nome, medico_crm, medico_cpf, medico_telefone, medico_email, medico_dtnascimento, medico_status, medico_sexo, medico_endereco) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3373 (class 0 OID 32884)
+-- Dependencies: 212
+-- Data for Name: paciente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.paciente (paciente_id, paciente_nome, paciente_telefone, paciente_cpf, paciente_dnas, paciente_email, paciente_endereco, paciente_status, paciente_alergia, paciente_sexo, paciente_nacionalidade, paciente_estadocivil) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3377 (class 0 OID 32900)
+-- Dependencies: 216
+-- Data for Name: responsavel; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.responsavel (responsavel_id, responsavel_nome, responsavel_cpf, responsavel_dtnascimento, responsavel_telefone, responsavel_email, responsavel_endereco, responsavel_parentesco, responsavel_observacoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3371 (class 0 OID 32875)
+-- Dependencies: 210
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario (usuario_id, usuario_nome, usuario_cpf, usuario_email, usuario_senha, usuario_status) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3403 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: convenio_convenio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.convenio_convenio_id_seq', 1, false);
+
+
+--
+-- TOC entry 3404 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: especialidade_especialidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.especialidade_especialidade_id_seq', 1, false);
+
+
+--
+-- TOC entry 3405 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: exame_exame_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.exame_exame_id_seq', 1, false);
+
+
+--
+-- TOC entry 3406 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: funcionario_funcionario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.funcionario_funcionario_id_seq', 1, false);
+
+
+--
+-- TOC entry 3407 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: medicamento_medicamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.medicamento_medicamento_id_seq', 1, false);
+
+
+--
+-- TOC entry 3408 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: medico_medico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.medico_medico_id_seq', 1, false);
+
+
+--
+-- TOC entry 3409 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: paciente_paciente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.paciente_paciente_id_seq', 1, false);
+
+
+--
+-- TOC entry 3410 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: responsavel_responsavel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.responsavel_responsavel_id_seq', 1, false);
+
+
+--
+-- TOC entry 3411 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: usuario_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuario_usuario_id_seq', 1, false);
+
+
+--
+-- TOC entry 3230 (class 2606 OID 32950)
+-- Name: convenio convenio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.convenio
+    ADD CONSTRAINT convenio_pkey PRIMARY KEY (convenio_id);
+
+
+--
+-- TOC entry 3226 (class 2606 OID 32932)
+-- Name: especialidade especialidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.especialidade
+    ADD CONSTRAINT especialidade_pkey PRIMARY KEY (especialidade_id);
+
+
+--
+-- TOC entry 3228 (class 2606 OID 32941)
+-- Name: exame exame_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.exame
+    ADD CONSTRAINT exame_pkey PRIMARY KEY (exame_id);
+
+
+--
+-- TOC entry 3222 (class 2606 OID 32914)
+-- Name: funcionario funcionario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.funcionario
+    ADD CONSTRAINT funcionario_pkey PRIMARY KEY (funcionario_id);
+
+
+--
+-- TOC entry 3224 (class 2606 OID 32923)
+-- Name: medicamento medicamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medicamento
+    ADD CONSTRAINT medicamento_pkey PRIMARY KEY (medicamento_id);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 32898)
+-- Name: medico medico_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.medico
+    ADD CONSTRAINT medico_pkey PRIMARY KEY (medico_id);
+
+
+--
+-- TOC entry 3216 (class 2606 OID 32889)
+-- Name: paciente paciente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paciente
+    ADD CONSTRAINT paciente_pkey PRIMARY KEY (paciente_id);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 32907)
+-- Name: responsavel responsavel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.responsavel
+    ADD CONSTRAINT responsavel_pkey PRIMARY KEY (responsavel_id);
+
+
+--
+-- TOC entry 3214 (class 2606 OID 32882)
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (usuario_id);
+
+
+-- Completed on 2025-11-14 19:50:27
+
+--
+-- PostgreSQL database dump complete
+--
