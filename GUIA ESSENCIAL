@@ -1,0 +1,57 @@
+## 🚀 Guia Essencial para Execução do Projeto Prontuário em Nova Máquina
+
+Siga rigorosamente a ordem abaixo para configurar o banco de dados e o projeto Java no NetBeans.
+
+### 1\. Configuração e Execução do Banco de Dados (PostgreSQL)
+
+O servidor do PostgreSQL deve estar ativo e pronto para receber o seu projeto.
+
+1.  **Instalação:** Confirme que o PostgreSQL Server (versão 14 ou superior) está instalado e o serviço está **ativo** e **rodando** (geralmente em `localhost:5432`).
+2.  **Criação do Banco de Dados:** Crie um novo banco de dados chamado **`Prontuario`** (com 'P' maiúsculo).
+3.  **Executar o DDL (Estrutura):** Execute o script SQL (o código de criação de tabelas fornecido pelo autor) dentro do banco de dados **`Prontuario`** para criar as tabelas `convenio`, `paciente`, etc..
+
+### 2\. Conexão Visual e Configuração da URL (NetBeans)
+
+Este passo configura a conexão no NetBeans e o código para o banco de dados.
+
+1.  **Conexão na Aba Services:** (Para gerenciar o BD)
+      * Abra a aba **Services** (Serviços) no NetBeans.
+      * Clique com o botão direito em **Databases** \> **New Connection** (Nova Conexão).
+      * Escolha o Driver **PostgreSQL**.
+      * **Preste Atenção nos Campos:**
+          * **Database:** Insira o nome **`Prontuario`** (com 'P' maiúsculo).
+          * **User Name:** Geralmente é `postgres`.
+          * **Password:** Use a senha configurada no seu PostgreSQL.
+          * Clique em **Test Connection** (Testar Conexão).
+2.  **Verificar o `Conexao.java`:**
+      * **Localização:** O arquivo está na pasta `model/Conexao.java`.
+      * **Ajuste:** Se o nome do banco de dados for alterado (ex: para `HospitalDB`), o usuário **DEVE** corrigir a variável `URL` dentro deste arquivo para refletir o novo nome (mantendo a URL do driver):
+        ```java
+        // Garanta que o nome do BD (Prontuario) está correto aqui:
+        private static final String URL = "jdbc:postgresql://localhost:5432/Prontuario"; 
+        // ... E a senha esteja correta:
+        private static final String SENHA = "123456"; 
+        ```
+
+### 3\. Configuração do Projeto e Pastas
+
+1.  **Organização dos Arquivos do Projeto:** Os arquivos de código devem ser colocados em suas respectivas pastas dentro do projeto `prontuario`:
+
+      * Arquivos como `ControllerConvenio.java` e `ControllerLogin.java` devem estar na pasta **`controller`**.
+      * Arquivos de modelo como `Conexao.java`, `ConvenioDAO.java`, etc., devem estar na pasta **`model`**.
+      * Arquivos de tela como `TelaConvenio.java` devem estar na pasta **`view`**.
+
+2.  **Adicionar a Biblioteca (Driver JDBC):**
+
+      * **Obter o Driver:** O arquivo **`postgresql-42.7.8.jar`** (ou a versão utilizada) deve ser obtido e copiado para a pasta **`Libraries`** do projeto.
+      * **Adicionar ao Classpath (NetBeans):**
+          * Clique com o botão direito no projeto \> **Properties** (Propriedades).
+          * Vá para a seção **Libraries** (Bibliotecas).
+          * Clique em **Add JAR/Folder...** (Adicionar JAR/Pasta...) e selecione o `postgresql-42.7.8.jar` copiado.
+
+### 4\. Execução Final
+
+1.  **Compilar (Limpar e Construir):** No menu **Build** (Construir), execute **Clean and Build Project** (Limpar e Construir Projeto).
+2.  **Executar:** Inicie o projeto. O aplicativo deve abrir e o cadastro de convênio deve funcionar perfeitamente.
+
+Qualquer duvida manda no grupo do whatsapp da SALA.
