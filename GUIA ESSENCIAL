@@ -6,9 +6,9 @@ Siga rigorosamente a ordem abaixo para configurar o banco de dados e o projeto J
 
 O servidor do PostgreSQL deve estar ativo e pronto para receber o seu projeto.
 
-1.  **Instalação:** Confirme que o PostgreSQL Server (versão 14 ou superior) está instalado e o serviço está **ativo** e **rodando** (geralmente em `localhost:5432`).
+1.  ABRE o PGADMIN
 2.  **Criação do Banco de Dados:** Crie um novo banco de dados chamado **`Prontuario`** (com 'P' maiúsculo).
-3.  **Executar o DDL (Estrutura):** Execute o script SQL (o código de criação de tabelas fornecido pelo autor) dentro do banco de dados **`Prontuario`** para criar as tabelas `convenio`, `paciente`, etc..
+3.  **Executar o DDL (Estrutura):** Execute o script SQL o codigo fornecido GABRIEL_YAN (Foi oque eu utilizei) dentro do banco de dados **`Prontuario`** para criar as tabelas `convenio`, `paciente`, etc..
 
 ### 2\. Conexão Visual e Configuração da URL (NetBeans)
 
