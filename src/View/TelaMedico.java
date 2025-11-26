@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 
 public class TelaMedico extends JFrame {
     
-    // Componentes da Interface Gráfica
+    
     private MedicoController controller = new MedicoController();
     
     private JTextField txtCrm = new JTextField(15);
@@ -55,17 +55,17 @@ public class TelaMedico extends JFrame {
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
         
-        // Adiciona a área de mensagens no topo ou no rodapé
+        
         add(lblMensagem, BorderLayout.NORTH); 
 
         setSize(400, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centraliza a tela
+        setLocationRelativeTo(null); 
         setVisible(true);
     }
     
     private void adicionarListeners() {
-        // Lógica do botão SALVAR (View chama o Controller)
+       
         btnSalvar.addActionListener(e -> {
             String crm = txtCrm.getText();
             String nome = txtNome.getText();
@@ -77,7 +77,7 @@ public class TelaMedico extends JFrame {
             lblMensagem.setText("Status: " + resultado);
         });
 
-        // Lógica do botão BUSCAR (View chama o Controller)
+        
         btnBuscar.addActionListener(e -> {
             String crmBusca = txtCrm.getText();
             Medico medico = controller.buscarMedico(crmBusca);
@@ -94,9 +94,9 @@ public class TelaMedico extends JFrame {
             }
         });
         
-        // Lógica do botão ATUALIZAR
+        
         btnAtualizar.addActionListener(e -> {
-            String crm = txtCrm.getText(); // CRM é a chave
+            String crm = txtCrm.getText(); 
             String nome = txtNome.getText();
             String especialidade = txtEspecialidade.getText();
             String telefone = txtTelefone.getText();
@@ -106,7 +106,7 @@ public class TelaMedico extends JFrame {
             lblMensagem.setText("Status: " + resultado);
         });
 
-        // Lógica do botão EXCLUIR
+       
         btnExcluir.addActionListener(e -> {
             String crm = txtCrm.getText();
             String resultado = controller.excluirMedico(crm);
@@ -123,7 +123,8 @@ public class TelaMedico extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Executa a tela na thread de eventos do Swing
+      
         SwingUtilities.invokeLater(() -> new TelaMedico());
     }
+
 }
