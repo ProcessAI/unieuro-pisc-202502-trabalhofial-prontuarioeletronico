@@ -1,0 +1,9 @@
+{
+  "medicamento_id": 1,
+  "medicamento_nome": "Paracetamol",
+  "medicamento_bula": "Analgésico e antitérmico.",
+  "medicamento_tipo": "A",
+  "medicamento_tarja": "V",
+  "medicamento_principioativo": "Paracetamol",
+  "medicamento_observacao": "Uso adulto e pediátrico."
+}
