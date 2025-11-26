@@ -1,6 +1,6 @@
 package model;
 
-// Classe que representa a entidade "Médico"
+
 public class Medico {
     
     private String crm;
@@ -9,7 +9,7 @@ public class Medico {
     private String telefone;
     private String email;
 
-    // Construtor Completo
+    
     public Medico(String crm, String nome, String especialidade, String telefone, String email) {
         this.crm = crm;
         this.nome = nome;
@@ -18,11 +18,11 @@ public class Medico {
         this.email = email;
     }
 
-    // Construtor Vazio
+   
     public Medico() {
     }
 
-    // Getters e Setters
+    
     public String getCrm() { return crm; }
     public void setCrm(String crm) { this.crm = crm; }
 
@@ -37,4 +37,5 @@ public class Medico {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
 }
