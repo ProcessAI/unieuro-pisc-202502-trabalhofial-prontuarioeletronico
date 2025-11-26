@@ -12,7 +12,7 @@ public class MedicoController {
         this.medicoDAO = new MedicoDAO();
     }
 
-    // 1. SALVAR/CADASTRAR
+  
     public String salvarMedico(String crm, String nome, String especialidade, String telefone, String email) {
         if (crm == null || crm.trim().isEmpty() || nome == null || nome.trim().isEmpty()) {
             return "Erro: CRM e Nome são obrigatórios.";
@@ -21,7 +21,7 @@ public class MedicoController {
         Medico novoMedico = new Medico(crm, nome, especialidade, telefone, email);
         
         try {
-            // Verifica se o médico já existe para evitar erro de PK duplicada
+          
             if (medicoDAO.buscarPorCrm(crm) != null) {
                 return "Erro: Já existe um médico cadastrado com este CRM.";
             }
@@ -33,17 +33,17 @@ public class MedicoController {
         }
     }
 
-    // 2. BUSCAR
+  
     public Medico buscarMedico(String crm) {
         try {
             return medicoDAO.buscarPorCrm(crm);
         } catch (SQLException e) {
             System.err.println("Erro SQL na busca: " + e.getMessage());
-            return null; // Retorna null em caso de erro no DB
+            return null; 
         }
     }
     
-    // 3. ATUALIZAR
+   
     public String atualizarMedico(String crm, String nome, String especialidade, String telefone, String email) {
         if (crm == null || crm.trim().isEmpty()) {
             return "Erro: CRM é obrigatório para atualização.";
@@ -60,7 +60,7 @@ public class MedicoController {
         }
     }
     
-    // 4. EXCLUIR
+    
     public String excluirMedico(String crm) {
         if (crm == null || crm.trim().isEmpty()) {
             return "Erro: CRM é obrigatório para exclusão.";
@@ -74,4 +74,5 @@ public class MedicoController {
             return "Erro no banco de dados ao excluir.";
         }
     }
+
 }
