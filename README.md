@@ -49,10 +49,10 @@ Agora vamos carregar o arquivo `.sql`:
 
 ## 2. Preparar o Projeto Java
 
-1. Extraia o arquivo:
+1. Abra o arquivo no NetBeans:
 
 ```
-prontuario.zip
+prontuario
 ```
 
 2. Abra o projeto no **NetBeans**.
