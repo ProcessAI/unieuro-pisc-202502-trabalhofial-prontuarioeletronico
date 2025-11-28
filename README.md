@@ -46,6 +46,12 @@ Agora vamos carregar o arquivo `.sql`:
 
 
 ---
+Obs.: Caso não funcione, execute o comando abaixo:
+   ```text
+"C:\Program Files\PostgreSQL\14\bin\psql.exe" -h localhost -p 5432 -U postgres -d prontuario -f "prontuario.sql"
+
+psql.exe -h localhost -p 5432 -U postgres -d prontuario -f "prontuario.sql"
+```
 
 ## 2. Preparar o Projeto Java
 
