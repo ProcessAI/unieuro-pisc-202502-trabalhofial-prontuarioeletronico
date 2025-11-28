@@ -9,7 +9,7 @@
 prontuario
 ```
 
-3. Execute o arquivo **prontuario.sql** no querry tools para criar todas as tabelas e estruturas necessárias do sistema.
+3. Execute o arquivo **prontuario.sql** no query tools para criar todas as tabelas e estruturas necessárias do sistema.
 
 ---
 
