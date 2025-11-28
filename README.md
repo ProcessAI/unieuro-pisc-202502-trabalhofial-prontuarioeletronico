@@ -1,28 +1,93 @@
-# unieuro-pisc-202502-trabalhofial-prontuarioeletronico
-Trabalho Final da Disciplina PISC/02/2025 - Prontuário Eletrônico
+# Projeto Prontuário – Java + PostgreSQL
 
-## Grupos
+## 1. Criar o Banco de Dados
 
-### Grupo 1 [Paciente]
-Letícia - L
+1. Abra o PostgreSQL (pgAdmin ou terminal).
+2. Crie um banco de dados com o nome:
 
-### Grupo 2 [Exame]
-Marcos - L
+```
+prontuario
+```
 
-### Grupo 3 [Especialidade]
-Arthur - L
+3. Execute o arquivo **prontuario.sql** para criar todas as tabelas e estruturas necessárias do sistema.
 
-### Grupo 4 [Médico]
-Luiz - L
+---
 
-### Grupo 5 [Funcionário]
-Gabriel - L
+## 2. Preparar o Projeto Java
 
-### Grupo 6 [Medicamento]
-Matheus - L
+1. Extraia o arquivo:
 
-### Grupo 7 [Convênio]
-Samuel - L
+```
+prontuario.zip
+```
 
-### Grupo 8 [Responsável]
-Oliver - L
+2. Abra o projeto no **NetBeans**.
+
+O projeto possui a seguinte estrutura principal:
+
+```
+src/
+ ├── view
+ ├── model
+ │    └── Conexao.java
+ ├── main
+ └── controller
+postgresql-42.7.8.jar
+```
+
+---
+
+## 3. Adicionar o Driver do PostgreSQL
+
+O driver JDBC necessário já está dentro da pasta do projeto:
+
+```
+postgresql-42.7.8.jar
+```
+
+Para adicionar no NetBeans:
+
+- Clique com o botão direito em **Libraries**.
+- Clique em **Add JAR/Folder**.
+- Selecione o arquivo **postgresql-42.7.8.jar** que está na raiz do projeto.
+- Confirme a adição.
+
+---
+
+## 4. Ajustar Configurações de Conexão
+
+O arquivo de conexão fica em:
+
+```
+src/model/Conexao.java
+```
+
+Edite usuário e senha conforme o seu PostgreSQL local:
+
+```java
+private static final String USUARIO = "seu_usuario";
+private static final String SENHA   = "sua_senha";
+```
+
+Certifique-se de que correspondem ao seu ambiente local.
+
+---
+
+## 5. Executar o Sistema
+
+1. Acesse o diretório:
+
+```
+src/main
+```
+
+2. Localize a classe que contém o método `main`.
+3. Execute o projeto pelo NetBeans usando **Run Project**.
+
+Se tudo estiver configurado corretamente, o sistema inicia e conecta ao banco normalmente.
+
+---
+
+## ✔️ Projeto pronto para uso
+
+Com o banco criado, o driver configurado e a conexão ajustada, o sistema Prontuário estará totalmente funcional.
