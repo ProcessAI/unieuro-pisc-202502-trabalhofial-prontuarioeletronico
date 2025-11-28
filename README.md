@@ -89,6 +89,4 @@ Se tudo estiver configurado corretamente, o sistema inicia e conecta ao banco no
 
 ---
 
-## ✔️ Projeto pronto para uso
-
 Com o banco criado, o driver configurado e a conexão ajustada, o sistema Prontuário estará totalmente funcional.
