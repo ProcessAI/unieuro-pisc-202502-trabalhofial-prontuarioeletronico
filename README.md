@@ -9,7 +9,7 @@
 prontuario
 ```
 
-3. Execute o arquivo **prontuario.sql** para criar todas as tabelas e estruturas necessárias do sistema.
+3. Execute o arquivo **prontuario.sql** no queey tools para criar todas as tabelas e estruturas necessárias do sistema.
 
 ---
 
@@ -83,6 +83,7 @@ src/main
 
 2. Localize a classe que contém o método `main`.
 3. Execute o projeto pelo NetBeans usando **Run Project**.
+4. O usuario é admin e a senha é 123
 
 Se tudo estiver configurado corretamente, o sistema inicia e conecta ao banco normalmente.
 
